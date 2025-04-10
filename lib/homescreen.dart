@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (mounted) setState(() {});
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const YogaLoginScreen()),
+      MaterialPageRoute(builder: (context) => StudentLogin ()),
       (route) => false,
     );
   }

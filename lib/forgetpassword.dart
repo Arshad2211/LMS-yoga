@@ -66,7 +66,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
     // ✅ Redirect to Login Page after 2 seconds
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => YogaLoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudentLogin()));
     });
   }
 

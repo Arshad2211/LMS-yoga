@@ -57,7 +57,7 @@ class _YogaExperienceScreenState extends State<YogaExperienceScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>YogaLoginScreen()),
+                      MaterialPageRoute(builder: (context) =>StudentLogin()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

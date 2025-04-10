@@ -1,41 +1,91 @@
 import 'package:flutter/material.dart';
-import 'homescreen.dart'; // your full current HomeScreen
-import 'attendence.dart';
-import 'feedback.dart'; // you can create this
-import 'profile.dart'; // you can create this
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:yoga/homescreen.dart';
 
-class BottomNavPage extends StatefulWidget {
-  const BottomNavPage({super.key});
+class Studentbottomnav extends StatefulWidget {
+  const Studentbottomnav({super.key});
 
   @override
-  State<BottomNavPage> createState() => _BottomNavPageState();
+  State<Studentbottomnav> createState() => _StudentHomeState();
 }
 
-class _BottomNavPageState extends State<BottomNavPage> {
-  int _currentIndex = 0;
+class _StudentHomeState extends State<Studentbottomnav> {
+  int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
+  final List<Widget> _screens = [
     HomeScreen(),
-    AttendanceScreen(),
-    FeedbackScreen(),
-    Profile(),
+    // Add your other screens here
+    Center(child: Text("Courses")),
+    Center(child: Text("Notifications")),
+    Center(child: Text("Profile")),
   ];
+
+  void onitemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex], // Changes the visible screen
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.black54,
-        onTap: (index) => setState(() => _currentIndex = index),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.check_circle), label: 'Attendance'),
-          BottomNavigationBarItem(icon: Icon(Icons.feedback), label: 'Feedback'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
+      backgroundColor: Colors.white,
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _screens,
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Colors.green, Colors.white],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              spreadRadius: 3,
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: GNav(
+          backgroundColor: Colors.transparent, // Important for gradient visibility
+          color: Colors.green.shade800,
+          activeColor: Colors.white,
+          tabBackgroundColor: Colors.green.shade700.withOpacity(0.3),
+          gap: 8,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          selectedIndex: _selectedIndex,
+          onTabChange: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          tabs: const [
+            GButton(
+              icon: Icons.home,
+              text: 'Home',
+            ),
+            GButton(
+              icon: Icons.menu_book,
+              text: 'Courses',
+            ),
+            GButton(
+              icon: Icons.mark_email_read,
+              text: 'Notification',
+            ),
+            GButton(
+              icon: Icons.person,
+              text: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
